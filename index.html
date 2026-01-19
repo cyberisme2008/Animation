@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Animation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(145deg, #0d1117, #010409);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    header {
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      text-decoration: none;
+      color: var(--text);
+      transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    .folder-name {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .folder-path {
+      font-size: 12px;
+      color: var(--muted);
+      word-break: break-all;
+    }
+
+    footer {
+      margin-top: 48px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Animation</h1>
+    <div class="subtitle">
+      Danh sách thư mục – bấm để mở trang của từng thư mục
+    </div>
+  </header>
+
+  <div class="grid" id="folders">
+    Đang tải...
+  </div>
+
+  <footer>
+    © Khánh PC
+  </footer>
+</div>
+
+<script>
+const OWNER  = "cyberisme2008";
+const REPO   = "Animation";
+const BRANCH = "main";
+
+const api =
+  `https://api.github.com/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`;
+
+const pagesBase =
+  `https://${OWNER}.github.io/${REPO}/`;
+
+fetch(api)
+  .then(res => res.json())
+  .then(data => {
+    const root = document.getElementById("folders");
+    root.innerHTML = "";
+
+    if (!data.tree) {
+      root.textContent = "Không load được repo";
+      return;
+    }
+
+    const dirs = new Set();
+    data.tree.forEach(item => {
+      if (item.type === "tree") {
+        dirs.add(item.path.split("/")[0]);
+      }
+    });
+
+    [...dirs].sort().forEach(dir => {
+      const a = document.createElement("a");
+      a.className = "card";
+      a.href = pagesBase + dir + "/";
+
+      a.innerHTML = `
+        <div class="folder-name">${dir}</div>
+        <div class="folder-path">/${dir}/</div>
+      `;
+
+      root.appendChild(a);
+    });
+  })
+  .catch(() => {
+    document.getElementById("folders").textContent =
+      "Lỗi GitHub API";
+  });
+</script>
+
+</body>
+</html>
