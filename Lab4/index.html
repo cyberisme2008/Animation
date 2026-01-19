@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Movie Landing Page</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="Cyber.png" type="image/png">
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">🎬 MOVIE CYBER</div>
+    <ul>
+      <li><a href="#home" class="nav-link active">Home</a></li>
+      <li><a href="#movies" class="nav-link">Movies</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <button id="toggleTheme">đổi màu</button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <h1 class="hero-title">Phim Yêu Thích</h1>
+
+    <!-- Slider -->
+    <div class="slider">
+      <img src="avenger1.png" class="slide active">
+      <img src="batman.png" class="slide">
+      <img src="spiderman.png" class="slide">
+    </div>
+
+    <button class="cta">Xem ngay</button>
+  </section>
+
+  <!-- Movies Section -->
+  <section id="movies" class="section">
+    <h2>Phim Mới Ra</h2>
+    <div class="cards">
+      <div class="card reveal">
+        <img src="zootopia1.png">
+        <h3>Zootopia: Phi Vụ Động Trời</h3>
+      </div>
+      <div class="card reveal">
+        <img src="Frozen.png">
+        <h3>Nữ hoàng Băng giá 2</h3>
+      </div>
+      <div class="card reveal">
+        <img src="interstellar.png">
+        <h3>Hố Đen Tử Thần</h3>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <h2>Giới Thiệu</h2>
+    <p class="reveal">Website giới thiệu các bộ phim sắp chiếu tới tại thời gian 2025 rất nhiều bộ phim hay và cảm động và có những bộ phim siêu anh hùng hấp dẫn</p>
+  </section>
+
+  <section id="contact" class="section">
+    <h2>Liên Hệ</h2>
+    <button class="cta">Mua vé</button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
